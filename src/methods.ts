@@ -129,8 +129,8 @@ Litepicker.prototype.show = function (el = null) {
       leftAlt = (elBCR.right - parentBCR.right) - pickerBCR.width;
     }
   } else {
-    scrollX = window.scrollX;
-    scrollY = window.scrollY;
+    scrollX = window.scrollX || 0;
+    scrollY = window.scrollY || 0;
 
     if (top + pickerBCR.height > window.innerHeight
       && elBCR.top - pickerBCR.height > 0) {
