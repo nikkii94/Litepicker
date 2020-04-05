@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "outDir": "./dist/js",
-    "module": "commonjs",
-    "target": "es6",
+     "module": "amd",
+    "downlevelIteration": true,
+    "lib": [
+      "es5", "es6", "dom", "dom.iterable"
+    ],
+    "target": "es5",
     "declaration": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
@@ -13,6 +17,6 @@
     "node_modules",
     "**/node_modules/*",
     "src/methods.ts",
-    "tests",
+    "tests"
   ]
 }

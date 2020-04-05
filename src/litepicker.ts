@@ -1,6 +1,8 @@
 import { Calendar } from './calendar';
 import { DateTime } from './datetime';
+import { CustomDate } from './customdate';
 import * as style from './scss/main.scss';
+
 
 export class Litepicker extends Calendar {
   protected triggerElement;
@@ -62,7 +64,7 @@ export class Litepicker extends Calendar {
       );
     }
 
-    if (startValue instanceof Date && !isNaN(startValue.getTime())) {
+    if (startValue instanceof CustomDate && !isNaN(startValue.getTime())) {
       this.options.startDate = new DateTime(
         startValue,
         this.options.format,
@@ -70,7 +72,7 @@ export class Litepicker extends Calendar {
       );
     }
 
-    if (this.options.startDate && endValue instanceof Date && !isNaN(endValue.getTime())) {
+    if (this.options.startDate && endValue instanceof CustomDate && !isNaN(endValue.getTime())) {
       this.options.endDate = new DateTime(
         endValue,
         this.options.format,
@@ -78,17 +80,17 @@ export class Litepicker extends Calendar {
       );
     }
 
-    if (this.options.singleMode && !(this.options.startDate instanceof Date)) {
+    if (this.options.singleMode && !(this.options.startDate instanceof CustomDate)) {
       this.options.startDate = null;
     }
     if (!this.options.singleMode
-      && (!(this.options.startDate instanceof Date) || !(this.options.endDate instanceof Date))) {
+      && (!(this.options.startDate instanceof CustomDate) || !(this.options.endDate instanceof CustomDate))) {
       this.options.startDate = null;
       this.options.endDate = null;
     }
 
     for (let idx = 0; idx < this.options.numberOfMonths; idx += 1) {
-      const date = this.options.startDate instanceof Date
+      const date = this.options.startDate instanceof CustomDate
         ? this.options.startDate.clone()
         : new DateTime();
       date.setDate(1);
@@ -650,8 +652,8 @@ export class Litepicker extends Calendar {
   private onInput(event) {
     let [startValue, endValue] = this.parseInput();
 
-    if (startValue instanceof Date && !isNaN(startValue.getTime())
-      && endValue instanceof Date && !isNaN(endValue.getTime())) {
+    if (startValue instanceof CustomDate && !isNaN(startValue.getTime())
+      && endValue instanceof CustomDate && !isNaN(endValue.getTime())) {
 
       if (startValue.getTime() > endValue.getTime()) {
         const tempDate = startValue.clone();

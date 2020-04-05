@@ -1,9 +1,11 @@
-export class DateTime extends Date {
+import { CustomDate } from './customdate';
+
+export class DateTime extends CustomDate {
 
   public static parseDateTime(date, format = 'YYYY-MM-DD', lang = 'en-US') {
     if (!date) return new Date(NaN);
 
-    if (date instanceof Date) return DateTime.getDateZeroTime(new Date(date));
+    if (date instanceof CustomDate) return DateTime.getDateZeroTime(new Date(date));
 
     if (/^\d{10,}$/.test(date)) return DateTime.getDateZeroTime(new Date(Number(date)));
 
