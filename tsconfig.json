@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "outDir": "./dist/js",
-     "module": "amd",
-    "downlevelIteration": true,
-    "lib": [
-      "es5", "es6", "dom", "dom.iterable"
-    ],
-    "target": "es5",
+    "module": "commonjs",
+    "target": "ES5",
+//     "module": "amd",
+//    "downlevelIteration": true,
+//    "lib": [
+//      "es5", "es6", "dom", "dom.iterable"
+//    ],
+//    "target": "es5",
     "declaration": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },

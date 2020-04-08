@@ -1,5 +1,6 @@
 import { DateTime } from './datetime';
 import * as style from './scss/main.scss';
+import { findNestedMonthItem } from './utils';
 
 export class Calendar {
   protected options: any = {
@@ -66,6 +67,7 @@ export class Calendar {
       one: 'day',
       other: 'days',
     },
+    tooltipPluralSelector: null,
 
     // Events
     onShow: null,
@@ -161,7 +163,7 @@ export class Calendar {
         option.text = optionMonth.toLocaleString(this.options.lang, { month: 'long' });
         option.disabled = (this.options.minDate
           && optionMonth.isBefore(new DateTime(this.options.minDate), 'month'))
-          || (this.options.maxDate && optionMonth.isBefore(new DateTime(this.options.maxDate), 'month'));
+          || (this.options.maxDate && optionMonth.isAfter(new DateTime(this.options.maxDate), 'month'));
         option.selected = optionMonth.getMonth() === date.getMonth();
 
         selectMonths.appendChild(option);
@@ -174,7 +176,7 @@ export class Calendar {
 
         if (this.options.splitView) {
           const monthItem = target.closest(`.${style.monthItem}`);
-          idx = [...monthItem.parentNode.childNodes].findIndex(el => el === monthItem);
+          idx = findNestedMonthItem(monthItem);
         }
 
         this.calendars[idx].setMonth(Number(target.value));
@@ -218,8 +220,8 @@ export class Calendar {
         option.value = x;
         option.text = x;
         option.disabled = (this.options.minDate
-          && optionYear.isBefore(new DateTime(this.options.minDate), 'month'))
-          || (this.options.maxDate && optionYear.isBefore(new DateTime(this.options.maxDate), 'month'));
+          && optionYear.isBefore(new DateTime(this.options.minDate), 'year'))
+          || (this.options.maxDate && optionYear.isAfter(new DateTime(this.options.maxDate), 'year'));
         option.selected = date.getFullYear() === x;
 
         selectYears.appendChild(option);
@@ -232,7 +234,7 @@ export class Calendar {
 
         if (this.options.splitView) {
           const monthItem = target.closest(`.${style.monthItem}`);
-          idx = [...monthItem.parentNode.childNodes].findIndex(el => el === monthItem);
+          idx = findNestedMonthItem(monthItem);
         }
 
         this.calendars[idx].setFullYear(Number(target.value));
